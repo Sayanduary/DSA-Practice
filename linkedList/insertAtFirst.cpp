@@ -201,18 +201,19 @@ void duplicateNodeData(Node *head_ref)
 }
 void reverseList(Node *&head_ref)
 {
-  Node *prev = NULL;
+  Node *prevNode = NULL;
   Node *currentNode = head_ref;
-  Node *next = NULL;
 
   while (currentNode != NULL)
   {
-    next = currentNode->next;
-    currentNode->next = prev;
-    prev = currentNode;
+    Node *next = currentNode->next;
+    currentNode->next = prevNode;
+
+    prevNode = currentNode;
     currentNode = next;
   }
-  head_ref = prev;
+  head_ref->next = NULL;
+  head_ref = prevNode;
 }
 void reverse2List(struct Node *&head_ref)
 {
@@ -244,7 +245,7 @@ int main()
     cout << "List is not sorted" << endl;
   }
 
-  recursive2List(head);
+  reverseList(head);
   displayNode(head);
 
   return 0;
