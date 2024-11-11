@@ -59,6 +59,11 @@ void printList(struct Node *node)
   }
   printf("NULL\n");
 }
+
+void recursive(struct Node **q, struct Node **p)
+{
+
+}
 int main()
 {
   struct Node *head = NULL;

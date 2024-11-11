@@ -214,6 +214,19 @@ void reverseList(Node *&head_ref)
   }
   head_ref = prev;
 }
+void reverse2List(struct Node *&head_ref)
+{
+  Node *q = NULL, *r = NULL;
+  Node *p = head_ref;
+  while (p != NULL)
+  {
+    r = q;
+    q = p;
+    p = p->next;
+    q->next = r;
+  }
+  head_ref = q;
+}
 int main()
 {
   insertAtSortedList(head, 20);
@@ -231,7 +244,7 @@ int main()
     cout << "List is not sorted" << endl;
   }
 
-  reverseList(head);
+  recursive2List(head);
   displayNode(head);
 
   return 0;
