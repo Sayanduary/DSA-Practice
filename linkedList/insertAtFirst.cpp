@@ -114,11 +114,53 @@ void insertAtSortedList(Node *&head_ref, int data)
   newNode->next = currentNode->next;
   currentNode->next = newNode;
 }
+void deleteNode(Node *&head_ref, int index)
+{
+  // If the list is empty
+  if (head_ref == NULL)
+  {
+    cout << "Nothing to Delete" << endl;
+    return;
+  }
+
+  // Case 1: Deleting the head node (index 0)
+  if (index == 0)
+  {
+    Node *tempNode = head_ref; // Store the current head
+    head_ref = tempNode->next; // Move head to the next node
+    delete tempNode;           // Delete the old head
+    return;
+  }
+
+  // Case 2: Deleting node at any other index
+  Node *tempNode = head_ref;
+  int currentIndex = 0;
+
+  // Traverse the list to find the node just before the one to delete
+  while (tempNode != NULL && currentIndex < index - 1)
+  {
+    tempNode = tempNode->next;
+    currentIndex++;
+  }
+
+  // If we reach the end of the list or the next node is NULL, index is out of range
+  if (tempNode == NULL || tempNode->next == NULL)
+  {
+    cout << "Out of Bounds" << endl;
+    return;
+  }
+
+  // Node to be deleted is tempNode->next
+  Node *nodeToDelete = tempNode->next;
+  tempNode->next = tempNode->next->next; // Skip the nodeToDelete
+  delete nodeToDelete;                   // Free the memory of the deleted node
+}
 int main()
 {
   insertAtSortedList(head, 20);
   insertAtSortedList(head, 10);
   insertAtSortedList(head, 6);
+  deleteNode(head, 0);
   displayNode(head);
   return 0;
 }
