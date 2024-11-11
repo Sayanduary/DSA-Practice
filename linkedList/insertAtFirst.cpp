@@ -201,6 +201,18 @@ void duplicateNodeData(Node *head_ref)
 }
 void reverseList(Node *&head_ref)
 {
+  Node *prev = NULL;
+  Node *currentNode = head_ref;
+  Node *next = NULL;
+
+  while (currentNode != NULL)
+  {
+    next = currentNode->next;
+    currentNode->next = prev;
+    prev = currentNode;
+    currentNode = next;
+  }
+  head_ref = prev;
 }
 int main()
 {
@@ -219,7 +231,7 @@ int main()
     cout << "List is not sorted" << endl;
   }
 
-  duplicateNodeData(head);
+  reverseList(head);
   displayNode(head);
 
   return 0;
