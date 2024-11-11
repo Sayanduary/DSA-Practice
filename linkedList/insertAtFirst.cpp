@@ -1,4 +1,5 @@
 #include <iostream>
+#include <limits.h>
 using namespace std;
 struct Node
 {
@@ -114,6 +115,27 @@ void insertAtSortedList(Node *&head_ref, int data)
   newNode->next = currentNode->next;
   currentNode->next = newNode;
 }
+
+bool isSorted(Node *&head_ref)
+{
+  if (!head_ref || !head_ref->next)
+  {
+    // If the list is empty or has only one node, it's considered sorted.
+    return true;
+  }
+
+  Node *currenetNode = head_ref;
+  while (currenetNode->next != NULL)
+  {
+    if (currenetNode->data > currenetNode->next->data)
+    {
+      return false;
+    }
+
+    currenetNode = currenetNode->next;
+  }
+  return true;
+}
 void deleteNode(Node *&head_ref, int index)
 {
   // If the list is empty
@@ -161,6 +183,13 @@ int main()
   insertAtSortedList(head, 10);
   insertAtSortedList(head, 6);
   deleteNode(head, 0);
+
   displayNode(head);
+
+  if (isSorted(head))
+  {
+    cout << "true";
+  }
+
   return 0;
 }
