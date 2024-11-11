@@ -201,7 +201,6 @@ void duplicateNodeData(Node *head_ref)
 }
 void reverseList(Node *&head_ref)
 {
-  
 }
 int main()
 {
@@ -213,7 +212,11 @@ int main()
 
   if (isSorted(head))
   {
-    cout << "true";
+    cout << "List is Sorted " << endl;
+  }
+  else
+  {
+    cout << "List is not sorted" << endl;
   }
 
   duplicateNodeData(head);
