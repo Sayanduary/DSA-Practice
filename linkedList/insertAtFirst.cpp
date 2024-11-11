@@ -199,6 +199,10 @@ void duplicateNodeData(Node *head_ref)
     }
   }
 }
+void reverseList(Node *&head_ref)
+{
+  
+}
 int main()
 {
   insertAtSortedList(head, 20);
