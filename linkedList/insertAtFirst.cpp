@@ -177,19 +177,43 @@ void deleteNode(Node *&head_ref, int index)
   tempNode->next = tempNode->next->next; // Skip the nodeToDelete
   delete nodeToDelete;                   // Free the memory of the deleted node
 }
+void duplicateNodeData(Node *head_ref)
+{
+  if (!head_ref)
+  {
+    return;
+  }
+  Node *currentNode = head_ref;
+
+  while (currentNode != NULL && currentNode->next != NULL)
+  {
+    if (currentNode->data == currentNode->next->data)
+    {
+      Node *duplicateNode = currentNode->next;
+      currentNode->next = duplicateNode->next;
+      delete duplicateNode;
+    }
+    else
+    {
+      currentNode = currentNode->next;
+    }
+  }
+}
 int main()
 {
   insertAtSortedList(head, 20);
   insertAtSortedList(head, 10);
+  insertAtFirst(head, 10);
   insertAtSortedList(head, 6);
-  deleteNode(head, 0);
-
-  displayNode(head);
+  insertAtSortedList(head, 6);
 
   if (isSorted(head))
   {
     cout << "true";
   }
+
+  duplicateNodeData(head);
+  displayNode(head);
 
   return 0;
 }
