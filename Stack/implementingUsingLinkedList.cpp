@@ -21,16 +21,18 @@ void push(int data)
 int pop()
 {
   int x;
-  Node *temp;
+
   if (top == NULL)
   {
     cout << "Stack is Empty";
   }
   else
   {
+    Node *temp;
+    x = top->data;
     temp = top;
     top = top->next;
-    x = temp->data;
+
     delete temp;
   }
   return x;
