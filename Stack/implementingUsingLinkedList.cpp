@@ -58,6 +58,7 @@ int main()
   push(20);
   push(30);
   push(40);
+  push(60);
   cout << "Popped Data-> " << pop() << endl;
   display();
   return 0;
