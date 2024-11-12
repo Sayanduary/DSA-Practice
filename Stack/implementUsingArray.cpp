@@ -55,7 +55,22 @@ int peek(struct Stack st, int pos)
   x = st.arr[st.top - pos + 1];
   return x;
 }
-
+int isFull(struct Stack st)
+{
+  return st.top == st.size - 1;
+}
+int isEmpty(struct Stack st)
+{
+  return st.top == -1;
+}
+int statckTop(struct Stack st)
+{
+  if (!isEmpty(st))
+  {
+    return st.arr[st.top];
+  }
+  return -1;
+}
 int main()
 {
   struct Stack st;
@@ -64,10 +79,12 @@ int main()
   push(&st, 20);
   push(&st, 40);
   push(&st, 100);
-  
+
   // pop(&st);
   displayStack(st);
-  cout << "Element--> " << peek(st, 1) << endl;
+  cout << "Element--> " << peek(st, 2) << endl;
+  
+  cout << statckTop(st);
 
   return 0;
 }
