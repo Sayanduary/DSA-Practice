@@ -62,6 +62,9 @@ int main()
   createStack(&st);
   push(&st, 10);
   push(&st, 20);
+  push(&st, 40);
+  push(&st, 100);
+  
   // pop(&st);
   displayStack(st);
   cout << "Element--> " << peek(st, 1) << endl;
