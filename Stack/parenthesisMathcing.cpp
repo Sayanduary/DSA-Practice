@@ -40,25 +40,28 @@ char pop(struct Stack *st)
   st->top--;
   return x;
 }
+int isMatchingPair(char opening, char closing)
+{
+  return (opening == '(' && closing == ')') ||
+         (opening == '{' && closing == '}') ||
+         (opening == '[' && closing == ']');
+}
 int isBalance(char *exp)
 {
   struct Stack st;
   createStack(&st, strlen(exp));
   for (int i = 0; exp[i] != '\0'; i++)
   {
-    if (exp[i] == '(')
+    if (exp[i] == '(' || exp[i] == '{' || exp[i] == '[')
     {
-      push(&st, '(');
+      push(&st, exp[i]);
     }
-    else if (exp[i] == ')')
+    else if (exp[i] == ')' || exp[i] == '}' || exp[i] == ']')
     {
-      if (isEmpty(&st))
+      if (isEmpty(&st) || !isMatchingPair(pop(&st), exp[i]))
       {
+        free(st.arr);
         return 0;
-      }
-      else
-      {
-        pop(&st);
       }
     }
   }
@@ -68,7 +71,7 @@ int isBalance(char *exp)
 }
 int main()
 {
-  char exp[] = "((A+B)*(A-B))";
+  char exp[] = "";
   if (isBalance(exp))
   {
     cout << "Balanced ";
