@@ -74,7 +74,7 @@ int main()
   char exp[] = "";
   if (isBalance(exp))
   {
-    cout << "Balanced ";
+    cout << "Balanced ";  
   }
   else
   {
