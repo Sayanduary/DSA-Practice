@@ -1,1 +1,1 @@
-top = top->next;
+q->size - 1)
