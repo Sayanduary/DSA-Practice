@@ -1,61 +1,61 @@
 #include <iostream>
+#include <stdlib.h>
 using namespace std;
 struct Queue
 {
   int size;
   int front;
   int rear;
-  int *arr; // Pointer to An Arary ,Memory allocation Dynamically
+  int *array;
 };
-void createQueue(Queue *q, int size)
+int isFull(Queue *q)
 {
-  q->size = size;
-  q->front = q->rear = -1;
-  q->arr = (int *)malloc(q->size * sizeof(int));
+  return (q->rear == q->size - 1);
 }
-void enQueue(Queue *q, int x)
+int isEmpty(Queue *q)
 {
-  if (q->rear == q->size - 1)
+  return (q->front == q->rear);
+}
+void enQueue(struct Queue *q, int val)
+{
+  if (isFull(q))
   {
-    cout << "Queue is Full ";
+    cout << "This Queue is Full";
   }
-  q->rear++;
-  q->arr[q->rear] = x;
+  else
+  {
+    q->rear++;
+    q->array[q->rear] = val;
+  }
 }
 int deQueue(Queue *q)
 {
-  int x = -1;
-  if (q->front == q->rear)
+  int val = -1;
+  if (isEmpty(q))
   {
-    cout << "Queue is Empty";
-    return -1;
+    cout << "The Queue is Empty ";
+    return val;
   }
   q->front++;
-  x = q->arr[q->front];
-  q->arr[q->front] = 0;
-  return x;
+  val = q->array[q->front];
+  return val;
 }
-void displayQueue(struct Queue q)
+void QueueDisplay(Queue q)
 {
-  if (q.front == q.rear)
-  {
-    cout << "Queue is Empty" << endl;
-    return;
-  }
   for (int i = q.front + 1; i <= q.rear; i++)
   {
-    cout << q.arr[i] << " ";
+    cout << q.array[i] << " ";
   }
-  cout << endl;
 }
 int main()
 {
   struct Queue q;
-  createQueue(&q, 3);
+  q.size = 100;
+  q.front = q.rear = -1;
+  q.array = (int *)malloc(q.size * (sizeof(int)));
   enQueue(&q, 10);
-  enQueue(&q, 30);
-  enQueue(&q, 40);
+  enQueue(&q, 20);
   deQueue(&q);
-  displayQueue(q);
+  QueueDisplay(q);
   return 0;
 }
