@@ -1,1 +1,1 @@
-q->size - 1)
+struct Node **front, Node **rear,

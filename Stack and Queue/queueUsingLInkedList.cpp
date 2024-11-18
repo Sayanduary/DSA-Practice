@@ -1,66 +1,59 @@
 #include <iostream>
 using namespace std;
+
 struct Node
 {
     int data;
     Node *next;
 } *front = NULL, *rear = NULL;
-void enQueue(int x)
+void enQueue(int val)
 {
-    Node *t;
-    t = (struct Node *)malloc(sizeof(Node));
-    if (t == NULL)
+    struct Node *newNode = (Node *)malloc(sizeof(Node));
+    if (newNode == NULL)
     {
-        cout << "Queue is Full ";
+        cout << "Queue is Full";
+        return;
     }
-    else
+    newNode->data = val;
+    newNode->next = NULL;
+    if (front == NULL)
     {
-        t->data = x;
-        t->next = NULL;
-        if (front == NULL)
-        {
-            front = rear = t;
-        }
-        else
-        {
-            rear->next = t;
-            rear = t;
-        }
+        front = rear = newNode;
+        return;
+    }
+    rear->next = newNode;
+    rear = newNode;
+}
+void display(struct Node *head_ref)
+{
+    while (head_ref)
+    {
+
+        cout << head_ref->data << " ";
+        head_ref = head_ref->next;
     }
 }
 int deQueue()
 {
-    int x = -1;
-
+    int val = -1;
+    Node *ptr = front;
     if (front == NULL)
     {
-        cout << "Queue is Empty ";
-        return x;
+        cout << "Queue is Empty";
+        return val;
     }
-    Node *temp = front;
     front = front->next;
-    x = temp->data;
-    delete temp;
-    return x;
-}
-void displayQueue()
-{
-    Node *temp = front;
-    while (temp)
-    {
-        cout << temp->data << ' ';
-        if (temp->next != NULL)
-        {
-            cout << " -> ";
-        }
-        temp = temp->next;
-    }
+    val = ptr->data;
+    free(ptr);
+    return val;
 }
 int main()
 {
-    enQueue(10);
+    enQueue(100);
+    enQueue(40);
+    enQueue(90);
     enQueue(20);
     deQueue();
-    displayQueue();
+    display(front);
     return 0;
 }
