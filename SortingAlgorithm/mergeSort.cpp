@@ -38,13 +38,13 @@ void merge(int *arr, int left, int mid, int right)
   for (; i < n1; i++)
   {
     arr[k] = L[i];
-    i++;
+
     k++;
   }
   for (; j < n2; j++)
   {
     arr[k] = R[j];
-    j++;
+
     k++;
   }
 }
@@ -63,10 +63,18 @@ int main()
 {
   int arr[] = {12, 11, 13, 5, 6, 7};
   int length = sizeof(arr) / sizeof(arr[0]);
+
+  cout << "Given array: ";
   printArray(arr, length);
   cout << endl;
+
   mergeSort(arr, 0, length - 1);
+
+  cout << "Sorted array: ";
   printArray(arr, length);
+  cout << endl;
+
+  return 0;
 
   return 0;
 }
