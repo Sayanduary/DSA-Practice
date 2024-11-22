@@ -9,7 +9,15 @@ struct Node
   Node *left;
   Node *right;
 };
-
+void inorderTraversal(Node *root)
+{
+  if (root != NULL)
+  {
+    inorderTraversal(root->left);  // Traverse left subtree
+    cout << root->data << " ";     // Visit root node
+    inorderTraversal(root->right); // Traverse right subtree
+  }
+}
 struct Node *createNode(int data)
 {
   struct Node *rootNode;
@@ -60,5 +68,6 @@ int main()
 
   p->left = p1;
   p->right = p2;
+  inorderTraversal(p);
   return 0;
 }
