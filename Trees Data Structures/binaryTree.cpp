@@ -50,11 +50,23 @@ Node *createNode(int data)
 }
 int isBST(Node *root)
 {
+  static Node *prevNode = NULL;
   if (root != NULL)
   {
-    isBST(root->left);
-    cout << " " << root->data;
-    isBST(root->right);
+    if (!isBST(root->left))
+    {
+      return 0;
+    }
+    if (prevNode != NULL && root->data <= prevNode->data)
+    {
+      return 0;
+    }
+    prevNode = root;
+    return isBST(root->right);
+  }
+  else
+  {
+    return 1;
   }
 }
 int main()
@@ -82,7 +94,7 @@ int main()
   // cout << endl;
   // inOrder(rootNode);
 
-  isBST(rootNode);
+  cout << (isBST(rootNode));
 
   return 0;
 }
