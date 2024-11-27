@@ -15,6 +15,16 @@ void preOrder(Node *root)
     preOrder(root->right);
   }
 }
+
+void postOdrder(Node *root)
+{
+  if (root != NULL)
+  {
+    postOdrder(root->left);
+    postOdrder(root->right);
+    cout << root->data;
+  }
+}
 Node *createNode(int data)
 {
   Node *rootNode = (Node *)malloc(sizeof(Node));
@@ -25,7 +35,7 @@ Node *createNode(int data)
 }
 int main()
 {
-  struct Node *rootNode = createNode(4);
+  Node *rootNode = createNode(4);
   Node *p = createNode(1);
   Node *p1 = createNode(5);
   Node *p2 = createNode(2);
@@ -35,5 +45,8 @@ int main()
   p->left = p1;
   p->right = p2;
   preOrder(rootNode);
+  cout << endl;
+  postOdrder(rootNode);
+  cout << endl;
   return 0;
 }
