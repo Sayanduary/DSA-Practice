@@ -35,6 +35,73 @@ Node *searchBST(Node *root, int key)
     return searchBST(root->left, key);
   }
 }
+Node *searchBSTiter(Node *root, int key)
+{
+  if (root == NULL)
+  {
+    return NULL;
+  }
+  while (root != NULL)
+  {
+    if (key == root->data)
+    {
+      return root;
+    }
+    else if (key < root->data)
+    {
+      root = root->left;
+    }
+    else
+    {
+      root = root->right;
+    }
+  }
+  return NULL;
+}
+
+void insertNode(Node *root, int key)
+{
+  Node *prevNode = NULL;
+  Node *currentNode = root;
+  while (currentNode != NULL)
+  {
+    prevNode = currentNode;
+    if (currentNode->data == key)
+    {
+      return;
+    }
+    else if (key < currentNode->data)
+    {
+      currentNode = currentNode->left;
+    }
+    else
+    {
+      currentNode = currentNode->right;
+    }
+  }
+  Node *newNode = createNode(key);
+  if (prevNode == NULL)
+  {
+    root = newNode;
+  }
+  else if (key < prevNode->data)
+  {
+    prevNode->left = newNode;
+  }
+  else
+  {
+    prevNode->right = newNode;
+  }
+}
+void inorderTraversal(Node *root)
+{
+  if (root != NULL)
+  {
+    inorderTraversal(root->left);
+    cout << root->data << " ";
+    inorderTraversal(root->right);
+  }
+}
 int main()
 {
   Node *rootNode = createNode(50);
@@ -53,13 +120,16 @@ int main()
   p1->right = p6;
 
   Node *result = searchBST(rootNode, 50);
-  if (result)
+  Node *resultIter = searchBSTiter(rootNode, 50);
+  if (resultIter)
   {
-    cout << "Found " << rootNode->data << endl;
+    cout << "Found " << resultIter->data << endl;
   }
   else
   {
     cout << "Not Found " << endl;
   }
+  insertNode(rootNode, 71);
+  inorderTraversal(rootNode);
   return 0;
 }
