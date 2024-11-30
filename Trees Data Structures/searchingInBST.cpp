@@ -102,6 +102,55 @@ void inorderTraversal(Node *root)
     inorderTraversal(root->right);
   }
 }
+Node *inOrderPredecessor(Node *root)
+{
+  root = root->left;
+  while (root->right != NULL)
+  {
+    root = root->right;
+  }
+  return root;
+}
+struct Node *deleteNode(Node *root, int val)
+{
+  struct Node *iPre;
+  if (root == NULL)
+  {
+    return NULL;
+  }
+  if (root->left == NULL && root->right == NULL)
+  {
+    free(root);
+    return NULL;
+  }
+  // search for the node to deleted
+  if (val < root->data)
+  {
+    root->left = deleteNode(root->left, val);
+  }
+  else if (val > root->data)
+  {
+    root->right = deleteNode(root->right, val);
+  }
+  // Deletion strategy when the node is found
+  else
+  {
+    if (root->left != NULL)
+    {
+      iPre = inOrderPredecessor(root);
+      root->data = iPre->data;
+      root->left = deleteNode(root->left, iPre->data);
+    }
+    else if (root->right != NULL)
+    {
+     iPre = inOrderPredecessor(root);
+      root->data = iPre->data;
+      root->right = deleteNode(root->right, iPre->data);
+    }
+  }
+  return root;
+}
+
 int main()
 {
   Node *rootNode = createNode(50);
@@ -130,6 +179,8 @@ int main()
     cout << "Not Found " << endl;
   }
   insertNode(rootNode, 71);
+  deleteNode(rootNode, 60);
   inorderTraversal(rootNode);
+  
   return 0;
 }
