@@ -6,7 +6,7 @@ struct Queue
   int front;
   int rear;
   int *array;
-} *q;
+} *Q;
 Queue *create(int size)
 {
   Queue *q = (Queue *)malloc(sizeof(Queue));
