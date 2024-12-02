@@ -8,21 +8,20 @@ void printArray(int *A, int n)
   }
   cout << endl;
 }
-void insertionSort(int *A, int n)
-{
-  int j;
-  // Loop for Passes
-  for (int i = 1; i <= n - 1; i++)
-  {
 
-    int key = A[i];
+void insertionSort(int A[], int n)
+{
+  int i, j, store;
+  for (i = 1; i < n; i++)
+  {
     j = i - 1;
-    while (j >= 0 && A[j] > key)
-    { 
+    store = A[i];
+    while (j > -1 && A[j] > store)
+    {
       A[j + 1] = A[j];
       j--;
     }
-    A[j + 1] = key;
+    A[j + 1] = store;
   }
 }
 
@@ -34,5 +33,4 @@ int main()
   insertionSort(A, length);
   printArray(A, length);
   return 0;
-  
 }
