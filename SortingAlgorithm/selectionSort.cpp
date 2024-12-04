@@ -8,24 +8,26 @@ void printArray(int A[], int n)
   }
   cout << endl;
 }
-
+void swap(int *A, int *B)
+{
+  int temp;
+  temp = *A;
+  *A = *B;
+  *B = temp;
+}
 void selectionSort(int *A, int n)
 {
-  int indexOfMin;
-  cout << "Running Selection Sort.." << endl;
+  int i, j, k;
   for (int i = 0; i < n - 1; i++)
   {
-    indexOfMin = i;
-    for (int j = i + 1; j < n; j++)
+    for (j = k = i; j < n ; j++)
     {
-      if (A[j] < A[indexOfMin])
+      if (A[j] < A[k])
       {
-        indexOfMin = j;
+        k = j;
       }
+      swap(&A[i], &A[k]);
     }
-    int temp = A[i];
-    A[i] = A[indexOfMin];
-    A[indexOfMin] = temp;
   }
 }
 
