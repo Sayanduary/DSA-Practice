@@ -17,7 +17,7 @@ void printNodes(Node **root)
 }
 void sortedInsert(Node **root, int data)
 {
-  Node *newNode, *current = *root, *prev = *root;
+  Node *newNode, *current = *root;
   newNode = (Node *)malloc(sizeof(Node));
   newNode->data = data;
   newNode->next = NULL;
@@ -34,11 +34,11 @@ void sortedInsert(Node **root, int data)
   {
     while (current->next != NULL && current->next->data < data)
     {
-      prev = current;
+
       current = current->next;
     }
-    newNode->next = current;
-    prev->next = newNode;
+    newNode->next = current->next;
+    current->next = newNode;
   }
 }
 int hashFn(int key)
