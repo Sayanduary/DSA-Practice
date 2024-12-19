@@ -16,14 +16,14 @@ int isOperator(char c) {
 }
 
 // Function to reverse a string
-void reverse(char* str) {
-    int n = strlen(str);
-    for (int i = 0; i < n / 2; i++) {
-        char temp = str[i];
-        str[i] = str[n - i - 1];
-        str[n - i - 1] = temp;
-    }
-}
+// void reverse(char* str) {
+//     int n = strlen(str);
+//     for (int i = 0; i < n / 2; i++) {
+//         char temp = str[i];
+//         str[i] = str[n - i - 1];
+//         str[n - i - 1] = temp;
+//     }
+// }
 
 // Function to perform infix to postfix conversion
 void infixToPostfix(char* infix, char* postfix) {
@@ -67,29 +67,29 @@ void infixToPostfix(char* infix, char* postfix) {
 }
 
 // Function to convert infix to prefix
-void infixToPrefix(char* infix, char* prefix) {
-    char reversedInfix[100], postfix[100];
+// void infixToPrefix(char* infix, char* prefix) {
+//     char reversedInfix[100], postfix[100];
 
-    // Reverse the infix expression
-    strcpy(reversedInfix, infix);
-    reverse(reversedInfix);
+//     // Reverse the infix expression
+//     strcpy(reversedInfix, infix);
+//     reverse(reversedInfix);
 
-    // Replace '(' with ')' and vice versa
-    for (int i = 0; reversedInfix[i] != '\0'; i++) {
-        if (reversedInfix[i] == '(') {
-            reversedInfix[i] = ')';
-        } else if (reversedInfix[i] == ')') {
-            reversedInfix[i] = '(';
-        }
-    }
+//     // Replace '(' with ')' and vice versa
+//     for (int i = 0; reversedInfix[i] != '\0'; i++) {
+//         if (reversedInfix[i] == '(') {
+//             reversedInfix[i] = ')';
+//         } else if (reversedInfix[i] == ')') {
+//             reversedInfix[i] = '(';
+//         }
+//     }
 
-    // Convert the modified infix to postfix
-    infixToPostfix(reversedInfix, postfix);
+//     // Convert the modified infix to postfix
+//     infixToPostfix(reversedInfix, postfix);
 
-    // Reverse the postfix to get prefix
-    strcpy(prefix, postfix);
-    reverse(prefix);
-}
+//     // Reverse the postfix to get prefix
+//     strcpy(prefix, postfix);
+//     reverse(prefix);
+// }
 
 int main() {
     char infix[100], prefix[100];
@@ -97,7 +97,7 @@ int main() {
     cout << "Enter infix expression: ";
     cin >> infix;
 
-    infixToPrefix(infix, prefix);
+    infixToPostfix(infix, prefix);
 
     cout << "Prefix expression: " << prefix << endl;
 
