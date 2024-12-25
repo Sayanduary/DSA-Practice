@@ -1,54 +1,80 @@
-// Pre Requirements
-// 1.Two Pointers(front and rear)
-// 2.One Array
-
 #include <iostream>
 using namespace std;
-struct Queue
+#define MAX 100
+typedef struct
 {
-  int size;
+  int arr[MAX];
   int front;
   int rear;
-  int *arr;
-};
+} Queue;
+void intializeQueue(Queue *q)
+{
+  q->front = -1;
+  q->rear = -1;
+}
+int isEmpty(Queue *q)
+{
+  return q->front == -1;
+}
+int isFull(Queue *q)
+{
+  return q->rear == MAX - 1;
+}
 void enQueue(Queue *q, int val)
 {
-  if (q->rear == q->size - 1)
+  if (isFull(q))
   {
-    cout << "Overflow";
     return;
   }
+  if (isEmpty(q))
+  {
+    q->front = 0;
+  }
+
   q->rear++;
+
   q->arr[q->rear] = val;
 }
 int deQueue(Queue *q)
 {
-  int x = -1;
+  if (isEmpty(q))
+  {
+    cout << "Queue is empty can not delete item";
+  }
+
+  int value = q->arr[q->front];
   if (q->front == q->rear)
   {
-    cout << "isEmpty";
+    q->front = q->rear = -1;
   }
   q->front++;
-  x = q->arr[q->front];
-  return x;
+  return value;
 }
+
 void display(Queue *q)
 {
-  for (int i = q->front + 1; i <= q->rear; i++)
+  if (isEmpty(q))
   {
-    cout << q->arr[i] << " ";
+    cout << "Queue is empty nothing to display";
   }
+  cout << "Queue Elements";
+  for (int i = q->front; i <= q->rear; i++)
+  {
+    cout << " " << q->arr[i];
+  }
+  cout << endl;
 }
 int main()
 {
-  struct Queue q;
-  cout << "Enter the size: ";
-  cin >> q.size;
-  q.arr = (int *)malloc(q.size * sizeof(int));
-  q.front = q.rear = -1;
+  Queue q;
+
+  intializeQueue(&q);
+
   enQueue(&q, 10);
-  enQueue(&q, 12);
+  enQueue(&q, 20);
+  enQueue(&q, 30);
   deQueue(&q);
   display(&q);
+
   return 0;
 }

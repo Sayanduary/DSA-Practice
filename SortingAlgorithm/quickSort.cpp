@@ -3,7 +3,7 @@ using namespace std;
 
 void printArray(int *A, int n)
 {
-  for (int i = 0; i <= n - 1; i++)
+  for (int i = 0; i < n; i++)
   {
     cout << A[i] << " ";
   }
@@ -17,38 +17,37 @@ void swap(int *a, int *b)
   *b = temp;
 }
 
-int partition(int A[], int low, int high)
+int partition(int *A, int low, int high)
 {
-  int pivot = A[low];
-  int i = low + 1;
-  int j = high;
-  while (i <= j)
+  int pivot = A[high];
+  int i = low - 1;
+
+  for (int j = low; j <= high - 1; j++)
   {
-    while (A[i] <= pivot)
+    if (A[j] < pivot)
     {
       i++;
-    }
-    while (A[j] > pivot)
-    {
-      j--;
-    }
-    if (i < j)
-    {
-      swap(&A[i], &A[j]);
+      int temp = A[i];
+      A[i] = A[j];
+      A[j] = temp;
     }
   }
-  swap(&A[low], &A[j]);
-  return j;
+  int temp = A[i+1];
+  A[i+1] = A[high];
+  A[high] = temp;
+  return i+1;
 }
-void quickSort(int A[], int low, int high)
+
+void quickSort(int *A, int low, int high)
 {
   if (low < high)
   {
-    int pi = partition(A, low, high);
-    quickSort(A, low, pi - 1);
-    quickSort(A, pi + 1, high);
+    int pivotIndex = partition(A, low, high);
+    quickSort(A, low, pivotIndex - 1);
+    quickSort(A, pivotIndex + 1, high);
   }
 }
+
 int main()
 {
   int A[] = {9, 8, 2, 0, 10, 11};
