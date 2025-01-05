@@ -1,167 +1,91 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-// Structure for a node in the circular linked list
 struct Node
 {
-  int data;          // Data part of the node
-  struct Node *next; // Pointer to the next node
-};
+  int data;
+  struct Node *next;
+} *head;
 
-// Function to create a new node
-struct Node *createNode(int value)
+void create(int A[], int n)
 {
-  struct Node *newNode = (struct Node *)malloc(sizeof(struct Node)); // Allocate memory
-  newNode->data = value;
-  newNode->next = newNode; // In circular linked list, the next of the new node points to itself initially
-  return newNode;
+  int i;
+  struct Node *t, *last;
+  head = (struct Node *)malloc(sizeof(struct Node));
+  head->data = A[0];
+  head->next = head;
+  last = head;
+
+  for (i = 1; i < n; i++)
+  {
+    t = (struct Node *)malloc(sizeof(struct Node));
+    t->data = A[i];
+    t->next = last->next;
+    last->next = t;
+    last = t;
+  }
+}
+void display(struct Node *h)
+{
+  do
+  {
+    printf("%d->", h->data);
+    h = h->next;
+  } while (h != head);
+  printf("(head)");
 }
 
-// Function to insert a node at the beginning of the circular linked list
-void insertAtBeginning(struct Node **head, int value)
+void insertAnyPosition(struct Node **head, int position, int val)
 {
-  struct Node *newNode = createNode(value);
-
-  if (*head == NULL)
-  { // If the list is empty
-    *head = newNode;
-  }
-  else
+  struct Node *t, *p = *head;
+  t = (struct Node *)malloc(sizeof(struct Node));
+  t->data = val;
+  if (position == 0)
   {
-    struct Node *temp = *head;
-    // Traverse the list to find the last node
-    while (temp->next != *head)
+    if (*head == NULL)
     {
-      temp = temp->next;
-    }
-    temp->next = newNode;  // Last node points to the new node
-    newNode->next = *head; // New node points to the head node
-    *head = newNode;       // The head now points to the new node
-  }
-}
-
-// Function to insert a node at the end of the circular linked list
-void insertAtEnd(struct Node **head, int value)
-{
-  struct Node *newNode = createNode(value);
-
-  if (*head == NULL)
-  { // If the list is empty
-    *head = newNode;
-  }
-  else
-  {
-    struct Node *temp = *head;
-    // Traverse the list to find the last node
-    while (temp->next != *head)
-    {
-      temp = temp->next;
-    }
-    temp->next = newNode;  // Last node points to the new node
-    newNode->next = *head; // New node points to the head node
-  }
-}
-
-// Function to delete a node from the circular linked list
-void deleteNode(struct Node **head, int value)
-{
-  if (*head == NULL)
-  {
-    printf("List is empty.\n");
-    return;
-  }
-
-  struct Node *temp = *head;
-  struct Node *prev = NULL;
-
-  // If the node to be deleted is the head node
-  if (temp->data == value)
-  {
-    if (temp->next == *head)
-    { // If there's only one node
-      free(temp);
-      *head = NULL;
+      t->next = *head;
+      *head = t;
     }
     else
     {
-      prev = *head;
-      while (prev->next != *head)
+      while (p->next != *head)
       {
-        prev = prev->next;
+        p = p->next;
       }
-      prev->next = temp->next; // Previous node points to the next of the current node
-      *head = temp->next;      // The head is updated to the next node
-      free(temp);              // Free the memory of the deleted node
+      t->next = *head;
+      p->next = t;
+      *head = t;
     }
-    return;
   }
-
-  // Search for the node to delete
-  prev = temp;
-  temp = temp->next;
-  while (temp != *head && temp->data != value)
+  else
   {
-    prev = temp;
-    temp = temp->next;
+    for (int i = 0; i < position - 1 && p->next != *head; i++)
+    {
+      p = p->next;
+    }
+    t->next = p->next;
+    p->next = t;
   }
-
-  // If the value is not found
-  if (temp == *head)
-  {
-    printf("Node with value %d not found.\n", value);
-    return;
-  }
-
-  // Delete the node
-  prev->next = temp->next; // Unlink the node
-  free(temp);              // Free the memory of the node
-}
-
-// Function to print the circular linked list
-void printList(struct Node *head)
-{
-  if (head == NULL)
-  {
-    printf("List is empty.\n");
-    return;
-  }
-  int count = 0;
-  struct Node *temp = head;
-  do
-  {
-    printf("%d -> ", temp->data);
-    count++;
-    temp = temp->next;
-  } while (temp != head); // Loop until we reach the head again
-  printf("(head) %d \n",count);
 }
 
 int main()
 {
-  struct Node *head = NULL; // Initialize an empty list
+  int A[] = {2, 3, 5, 6};
+  create(A, 4);
+  printf("Original List:\n");
+  display(head);
 
-  // Inserting nodes at the beginning
-  insertAtBeginning(&head, 10);
-  insertAtBeginning(&head, 20);
-  insertAtBeginning(&head, 30);
+  printf("Inserting 10 at position 0:\n");
+  insertAnyPosition(&head, 0, 10);
+  display(head);
 
-  printf("Circular Linked List after inserting at beginning: ");
-  printList(head);
+  printf("Inserting 15 at position 2:\n");
+  insertAnyPosition(&head, 2, 15);
+  display(head);
 
-  // Inserting nodes at the end
-  insertAtEnd(&head, 40);
-  insertAtEnd(&head, 50);
-
-  printf("Circular Linked List after inserting at end: ");
-  printList(head);
-
-  // Deleting a node with value 20
-  deleteNode(&head, 20);
-  printf("Circular Linked List after deleting node with value 20: ");
-  printList(head);
-
-  // Deleting a node that doesn't exist
-  deleteNode(&head, 100);
+  printf("Inserting 20 at position 6:\n");
+  insertAnyPosition(&head, 6, 20);
+  display(head);
 
   return 0;
 }
