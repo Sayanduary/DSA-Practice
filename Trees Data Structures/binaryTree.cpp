@@ -94,7 +94,7 @@ int main()
   // cout << endl;
   // inOrder(rootNode);
 
-  cout << (isBST(rootNode));
+  cout << (isBST(rootNode)) << endl;
 
   return 0;
 }
